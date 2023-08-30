@@ -1,0 +1,44 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  createdAt DateTime @default(now())
+  firstName String?
+  houses    House[]
+  id        String   @id @default(cuid())
+  lastName  String?
+  password  String
+  roles     Json
+  updatedAt DateTime @updatedAt
+  username  String   @unique
+}
+
+model House {
+  amenity   String
+  area      Int?
+  bath      Int
+  bed       Int
+  car       Int
+  category  String
+  cell      Int
+  city      String
+  createdAt DateTime @default(now())
+  desc      String
+  id        String   @id @default(cuid())
+  mapData   Json
+  photos    Json
+  street    String
+  tipo      String
+  title     String
+  updatedAt DateTime @updatedAt
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    String?
+  ward      String
+  whatsapp  Int
+}
